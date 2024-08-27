@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Matemática</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8579c9;
+            display: flex;  
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background: #4e232365;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input[type="text"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculadora</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="number1" placeholder="Introduce número 1" value="{{ number1 }}" step="any">
+            <input type="text" name="number2" placeholder="Introduce número 2" value="{{ number2 }}" step="any">
+            <select name="operation">
+                <option value="add" {% if operation == 'add' %}selected{% endif %}>Sumar</option>
+                <option value="subtract" {% if operation == 'subtract' %}selected{% endif %}>Restar</option>
+                <option value="multiply" {% if operation == 'multiply' %}selected{% endif %}>Multiplicar</option>
+                <option value="divide" {% if operation == 'divide' %}selected{% endif %}>Dividir</option>
+            </select>
+            <button type="submit">Calcular</button>
+        </form>
+        {% if result is not none %}
+            <div class="result">
+                Resultado: {{ result }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
